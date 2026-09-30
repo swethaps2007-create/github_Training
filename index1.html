@@ -1,0 +1,1835 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SWETHA.OS | Web Developer</title>
+
+    <style>
+
+        /* =========================
+           BASIC SETTINGS
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Courier New", monospace;
+            color: white;
+            background: #08070d;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           BACKGROUND
+        ========================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(154, 82, 255, 0.18),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(255, 72, 180, 0.12),
+                    transparent 30%
+                );
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            height: 65px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .dot {
+            display: inline-block;
+
+            width: 9px;
+            height: 9px;
+
+            margin-right: 8px;
+
+            border-radius: 50%;
+
+            background: #a56cff;
+
+            box-shadow: 0 0 15px #a56cff;
+        }
+
+        .top-status {
+            display: flex;
+            gap: 25px;
+
+            font-size: 12px;
+
+            color: #888;
+        }
+
+        .top-status span:first-child {
+            color: #77ffb2;
+        }
+
+
+        /* =========================
+           MAIN AREA
+        ========================= */
+
+        .desktop {
+            width: 88%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 430px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .terminal-line {
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .green {
+            color: #76ffb0;
+        }
+
+        .purple {
+            color: #bb8cff;
+        }
+
+        .hero h1 {
+            font-family: Arial, sans-serif;
+
+            font-size: clamp(45px, 8vw, 85px);
+
+            line-height: 1;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #b77cff;
+
+            text-shadow:
+                0 0 20px rgba(183,124,255,0.5);
+        }
+
+        .hero h2 {
+            font-size: 25px;
+
+            font-weight: normal;
+
+            color: #ddd;
+
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            color: #999;
+
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+
+            gap: 15px;
+
+            margin-top: 30px;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .hero-buttons button {
+            padding: 13px 22px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #a66cff;
+
+            color: white;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .hero-buttons button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 30px rgba(166,108,255,0.3);
+        }
+
+        .hero-buttons .secondary {
+            background: transparent;
+
+            border: 1px solid #555;
+
+            color: #ddd;
+        }
+
+
+        /* =========================
+           APP ICONS
+        ========================= */
+
+        .apps {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 25px;
+
+            padding: 20px 0 70px;
+        }
+
+        .app {
+            width: 100px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .app:hover {
+            transform: translateY(-8px);
+        }
+
+        .app-icon {
+            width: 70px;
+            height: 70px;
+
+            margin: auto auto 10px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            border-radius: 15px;
+
+            background: rgba(255,255,255,0.05);
+
+            font-size: 30px;
+
+            backdrop-filter: blur(15px);
+        }
+
+        .app span {
+            font-size: 12px;
+
+            color: #aaa;
+        }
+
+
+        /* =========================
+           WINDOWS
+        ========================= */
+
+        .window {
+            display: none;
+
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: min(850px, 90%);
+
+            max-height: 80vh;
+
+            overflow: auto;
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            border-radius: 14px;
+
+            background: rgba(15,13,24,0.95);
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.7);
+
+            backdrop-filter: blur(20px);
+
+            z-index: 10;
+        }
+
+        .window.active {
+            display: block;
+
+            animation: windowOpen 0.3s ease;
+        }
+
+        @keyframes windowOpen {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -45%)
+                    scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+
+        }
+
+        .window-header {
+            height: 50px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 20px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.1);
+
+            color: #bbb;
+        }
+
+        .window-header button {
+            border: none;
+
+            background: transparent;
+
+            color: #aaa;
+
+            font-size: 25px;
+        }
+
+        .window-header button:hover {
+            color: white;
+        }
+
+        .window-content {
+            padding: 30px;
+        }
+
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .markdown {
+            line-height: 1.8;
+        }
+
+        .markdown .comment {
+            color: #6dffae;
+
+            margin-bottom: 20px;
+        }
+
+        .markdown h2 {
+            margin-bottom: 20px;
+        }
+
+        .markdown h3 {
+            color: #b88aff;
+
+            margin-top: 25px;
+
+            margin-bottom: 10px;
+        }
+
+        .markdown ul {
+            margin-left: 25px;
+
+            color: #bbb;
+        }
+
+
+        /* =========================
+           PROJECTS
+        ========================= */
+
+        .project {
+            display: grid;
+
+            grid-template-columns: 60px 1fr;
+
+            gap: 20px;
+
+            padding: 25px 0;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.08);
+        }
+
+        .project-number {
+            color: #9d6cff;
+
+            font-size: 20px;
+        }
+
+        .project h3 {
+            margin-bottom: 8px;
+        }
+
+        .project p {
+            color: #999;
+
+            line-height: 1.6;
+        }
+
+        .tags {
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .tags span {
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(166,108,255,0.12);
+
+            color: #bd96ff;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           SKILLS
+        ========================= */
+
+        .skill {
+            margin: 25px 0;
+        }
+
+        .skill > div:first-child {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 8px;
+
+            color: #ccc;
+        }
+
+        .bar {
+            height: 7px;
+
+            border-radius: 20px;
+
+            background: #24212e;
+
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+
+            border-radius: 20px;
+
+            background: #a66cff;
+
+            box-shadow:
+                0 0 12px rgba(166,108,255,0.6);
+        }
+
+        .progress.html {
+            width: 90%;
+        }
+
+        .progress.css {
+            width: 70%;
+        }
+
+        .progress.javascript {
+            width: 40%;
+        }
+
+        .progress.git {
+            width: 40%;
+        }
+
+        .learning {
+            margin-top: 30px;
+
+            color: #777;
+        }
+
+        .learning strong {
+            color: #a8ffca;
+        }
+
+
+        /* =========================
+           EXPERIMENTS
+        ========================= */
+
+        .experiments {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .experiment-card {
+            padding: 20px;
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.03);
+        }
+
+        .experiment-card > span {
+            color: #a66cff;
+
+            font-size: 12px;
+        }
+
+        .experiment-card h3 {
+            margin: 12px 0;
+        }
+
+        .experiment-card p {
+            color: #888;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        .demo-button {
+            margin-top: 20px;
+
+            padding: 10px 15px;
+
+            border: 1px solid #a66cff;
+
+            background: transparent;
+
+            color: #c49cff;
+
+            border-radius: 7px;
+
+            transition: 0.3s;
+        }
+
+        .demo-button:hover {
+            background: #a66cff;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+        .glass-demo {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid rgba(255,255,255,0.15);
+
+            backdrop-filter: blur(10px);
+        }
+
+        .mini-card {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background: #171320;
+
+            transition: 0.3s;
+        }
+
+        .mini-card:hover {
+            transform:
+                rotate(3deg)
+                scale(1.05);
+        }
+
+
+        /* =========================
+           CONTACT
+        ========================= */
+
+        .contact h2 {
+            font-family: Arial, sans-serif;
+
+            font-size: 35px;
+
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            color: #999;
+
+            margin-bottom: 30px;
+        }
+
+        .contact-links {
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            padding: 12px 18px;
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            border-radius: 8px;
+
+            color: #ccc;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+        }
+
+        .contact-links a:hover {
+            border-color: #a66cff;
+
+            color: #c39aff;
+        }
+
+
+        /* =========================
+           BOTTOM DOCK
+        ========================= */
+
+        .dock {
+            position: fixed;
+
+            bottom: 20px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+
+            gap: 8px;
+
+            padding: 8px 10px;
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            border-radius: 15px;
+
+            background:
+                rgba(15,13,24,0.75);
+
+            backdrop-filter: blur(20px);
+
+            z-index: 20;
+        }
+
+        .dock button {
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            font-size: 20px;
+
+            transition: 0.3s;
+        }
+
+        .dock button:hover {
+            background:
+                rgba(255,255,255,0.1);
+
+            transform:
+                translateY(-5px);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .top-status {
+                display: none;
+            }
+
+            .desktop {
+                width: 90%;
+            }
+
+            .hero {
+                min-height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .hero h2 {
+                font-size: 20px;
+            }
+
+            .apps {
+                justify-content: center;
+            }
+
+            .experiments {
+                grid-template-columns: 1fr;
+            }
+
+            .window {
+                width: 94%;
+            }
+
+            .window-content {
+                padding: 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+
+                width: 200px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="background"></div>
+
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="logo">
+
+            <span class="dot"></span>
+
+            SWETHA.OS
+
+        </div>
+
+
+        <div class="top-status">
+
+            <span>● SYSTEM ONLINE</span>
+
+            <span id="clock">21:42</span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="desktop">
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="terminal-line">
+
+                <span class="green">
+                    swetha@portfolio
+                </span>
+
+                <span>:</span>
+
+                <span class="purple">
+                    ~
+                </span>
+
+                <span>$</span>
+
+                <span id="typing"></span>
+
+            </div>
+
+
+            <h1>
+
+                Hello, I'm
+                <span>Swetha.</span>
+
+            </h1>
+
+
+            <h2>
+
+                Aspiring Web Developer
+
+            </h2>
+
+
+            <p>
+
+                I turn ideas into interactive websites while
+                learning, experimenting and building my way
+                toward becoming a full-stack developer.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button
+                    onclick="openWindow('projectsWindow')">
+
+                    OPEN PORTFOLIO
+
+                </button>
+
+
+                <button
+                    class="secondary"
+                    onclick="openWindow('contactWindow')">
+
+                    CONTACT ME
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- APP ICONS -->
+
+        <section class="apps">
+
+
+            <div
+                class="app"
+                onclick="openWindow('aboutWindow')">
+
+                <div class="app-icon">
+                    📄
+                </div>
+
+                <span>
+                    README.md
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="app"
+                onclick="openWindow('projectsWindow')">
+
+                <div class="app-icon">
+                    📁
+                </div>
+
+                <span>
+                    Projects
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="app"
+                onclick="openWindow('skillsWindow')">
+
+                <div class="app-icon">
+                    💻
+                </div>
+
+                <span>
+                    Skills
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="app"
+                onclick="openWindow('experimentsWindow')">
+
+                <div class="app-icon">
+                    🧪
+                </div>
+
+                <span>
+                    Experiments
+                </span>
+
+            </div>
+
+
+
+            <div
+                class="app"
+                onclick="openWindow('contactWindow')">
+
+                <div class="app-icon">
+                    ✉️
+                </div>
+
+                <span>
+                    Contact
+                </span>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             ABOUT WINDOW
+        ========================= -->
+
+        <section
+            class="window"
+            id="aboutWindow">
+
+
+            <div class="window-header">
+
+                <span>
+                    README.md
+                </span>
+
+
+                <button
+                    onclick="closeWindow('aboutWindow')">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="window-content markdown">
+
+
+                <p class="comment">
+
+                    // about-me.md
+
+                </p>
+
+
+                <h2>
+                    # Hi, I'm Swetha 👋
+                </h2>
+
+
+                <p>
+
+                    I'm a student and aspiring web developer
+                    who enjoys turning ideas into websites.
+
+                </p>
+
+
+                <h3>
+                    Currently learning
+                </h3>
+
+
+                <ul>
+
+                    <li>HTML</li>
+
+                    <li>CSS</li>
+
+                    <li>JavaScript</li>
+
+                </ul>
+
+
+                <h3>
+                    My goal
+                </h3>
+
+
+                <p>
+
+                    Become a confident full-stack developer
+                    and build useful real-world applications.
+
+                </p>
+
+
+                <h3>
+                    What I enjoy
+                </h3>
+
+
+                <ul>
+
+                    <li>
+                        Building websites
+                    </li>
+
+                    <li>
+                        Learning by doing
+                    </li>
+
+                    <li>
+                        Experimenting with UI
+                    </li>
+
+                    <li>
+                        Turning ideas into projects
+                    </li>
+
+                </ul>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             PROJECTS WINDOW
+        ========================= -->
+
+        <section
+            class="window"
+            id="projectsWindow">
+
+
+            <div class="window-header">
+
+                <span>
+                    📁 projects/
+                </span>
+
+
+                <button
+                    onclick="closeWindow('projectsWindow')">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div class="window-content">
+
+
+                <div class="project">
+
+                    <div class="project-number">
+                        01
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            RFMS Fleet
+                        </h3>
+
+
+                        <p>
+
+                            A bus route and daily-wager
+                            headcount management interface.
+
+                        </p>
+
+
+                        <div class="tags">
+
+                            <span>
+                                HTML
+                            </span>
+
+                            <span>
+                                CSS
+                            </span>
+
+                            <span>
+                                JavaScript
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="project">
+
+                    <div class="project-number">
+                        02
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Student Mental Well-being
+                        </h3>
+
+
+                        <p>
+
+                            A concept for helping students
+                            understand and manage their
+                            daily well-being.
+
+                        </p>
+
+
+                        <div class="tags">
+
+                            <span>
+                                UI/UX
+                            </span>
+
+                            <span>
+                                Web
+                            </span>
+
+                            <span>
+                                Concept
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="project">
+
+                    <div class="project-number">
+                        03
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Smart Library
+                        </h3>
+
+
+                        <p>
+
+                            A digital library concept using
+                            automation and smart management
+                            features.
+
+                        </p>
+
+
+                        <div class="tags">
+
+                            <span>
+                                Web
+                            </span>
+
+                            <span>
+                                Database
+                            </span>
+
+                            <span>
+                                AI
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             SKILLS WINDOW
+        ========================= -->
+
+        <section
+            class="window"
+            id="skillsWindow">
+
+
+            <div class="window-header">
+
+                <span>
+                    developer-console
+                </span>
+
+
+                <button
+                    onclick="closeWindow('skillsWindow')">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="window-content terminal">
+
+
+                <p>
+
+                    <span class="green">
+                        $
+                    </span>
+
+                    skills
+
+                </p>
+
+
+
+                <div class="skill">
+
+                    <div>
+
+                        HTML
+
+                        <span>
+                            90%
+                        </span>
+
+                    </div>
+
+
+                    <div class="bar">
+
+                        <div
+                            class="progress html">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="skill">
+
+                    <div>
+
+                        CSS
+
+                        <span>
+                            70%
+                        </span>
+
+                    </div>
+
+
+                    <div class="bar">
+
+                        <div
+                            class="progress css">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="skill">
+
+                    <div>
+
+                        JavaScript
+
+                        <span>
+                            40%
+                        </span>
+
+                    </div>
+
+
+                    <div class="bar">
+
+                        <div
+                            class="progress javascript">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="skill">
+
+                    <div>
+
+                        Git
+
+                        <span>
+                            40%
+                        </span>
+
+                    </div>
+
+
+                    <div class="bar">
+
+                        <div
+                            class="progress git">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <p class="learning">
+
+                    >
+                    currently_learning:
+
+                    <strong>
+                        JavaScript
+                    </strong>
+
+                </p>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             EXPERIMENTS WINDOW
+        ========================= -->
+
+        <section
+            class="window"
+            id="experimentsWindow">
+
+
+            <div class="window-header">
+
+                <span>
+                    🧪 experiments/
+                </span>
+
+
+                <button
+                    onclick="closeWindow('experimentsWindow')">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="window-content experiments">
+
+
+                <div class="experiment-card">
+
+                    <span>
+                        01
+                    </span>
+
+
+                    <h3>
+                        CSS Hover Effects
+                    </h3>
+
+
+                    <p>
+
+                        Exploring transitions and
+                        interactive buttons.
+
+                    </p>
+
+
+                    <button class="demo-button">
+
+                        Hover Me
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="experiment-card">
+
+                    <span>
+                        02
+                    </span>
+
+
+                    <h3>
+                        Glass UI
+                    </h3>
+
+
+                    <p>
+
+                        Experimenting with glassmorphism
+                        and modern UI.
+
+                    </p>
+
+
+                    <div class="glass-demo">
+
+                        SWETHA
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="experiment-card">
+
+                    <span>
+                        03
+                    </span>
+
+
+                    <h3>
+                        Interactive Cards
+                    </h3>
+
+
+                    <p>
+
+                        Practicing transforms, shadows
+                        and animations.
+
+                    </p>
+
+
+                    <div class="mini-card">
+
+                        HELLO 👋
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTACT WINDOW
+        ========================= -->
+
+        <section
+            class="window"
+            id="contactWindow">
+
+
+            <div class="window-header">
+
+                <span>
+                    contact.exe
+                </span>
+
+
+                <button
+                    onclick="closeWindow('contactWindow')">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+
+            <div
+                class="window-content contact">
+
+
+                <h2>
+
+                    Let's build something.
+
+                </h2>
+
+
+                <p>
+
+                    I'm always interested in learning,
+                    collaborating and building new projects.
+
+                </p>
+
+
+                <div class="contact-links">
+
+                    <a
+                        href="#"
+                        onclick="return false;">
+
+                        📧 Email
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        onclick="return false;">
+
+                        💻 GitHub
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        onclick="return false;">
+
+                        🔗 LinkedIn
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         BOTTOM DOCK
+    ========================= -->
+
+    <footer class="dock">
+
+
+        <button
+            onclick="openWindow('aboutWindow')">
+
+            📄
+
+        </button>
+
+
+        <button
+            onclick="openWindow('projectsWindow')">
+
+            📁
+
+        </button>
+
+
+        <button
+            onclick="openWindow('skillsWindow')">
+
+            💻
+
+        </button>
+
+
+        <button
+            onclick="openWindow('experimentsWindow')">
+
+            🧪
+
+        </button>
+
+
+        <button
+            onclick="openWindow('contactWindow')">
+
+            ✉️
+
+        </button>
+
+
+    </footer>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+
+        /* =========================
+           LIVE CLOCK
+        ========================= */
+
+        function updateClock() {
+
+            const clock =
+                document.getElementById("clock");
+
+            const now = new Date();
+
+            let hours = now.getHours();
+
+            let minutes = now.getMinutes();
+
+            hours =
+                hours.toString().padStart(2, "0");
+
+            minutes =
+                minutes.toString().padStart(2, "0");
+
+            clock.textContent =
+                hours + ":" + minutes;
+
+        }
+
+
+        updateClock();
+
+        setInterval(updateClock, 1000);
+
+
+
+        /* =========================
+           TERMINAL TYPING
+        ========================= */
+
+        const text = "whoami";
+
+        let index = 0;
+
+
+        function typeText() {
+
+            if (index < text.length) {
+
+                document.getElementById("typing")
+                    .textContent += text[index];
+
+                index++;
+
+                setTimeout(typeText, 150);
+
+            }
+
+        }
+
+
+        typeText();
+
+
+
+        /* =========================
+           OPEN WINDOW
+        ========================= */
+
+        function openWindow(windowId) {
+
+            const windowElement =
+                document.getElementById(windowId);
+
+            windowElement.classList.add("active");
+
+        }
+
+
+
+        /* =========================
+           CLOSE WINDOW
+        ========================= */
+
+        function closeWindow(windowId) {
+
+            const windowElement =
+                document.getElementById(windowId);
+
+            windowElement.classList.remove("active");
+
+        }
+
+
+
+        /* =========================
+           ESCAPE KEY
+        ========================= */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Escape") {
+
+                    const windows =
+                        document.querySelectorAll(".window");
+
+                    windows.forEach(
+                        function(windowElement) {
+
+                            windowElement
+                                .classList
+                                .remove("active");
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
+```
